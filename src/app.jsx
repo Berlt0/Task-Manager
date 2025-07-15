@@ -1,4 +1,5 @@
-import { useState } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
+import axios from 'axios';
 import './app.css';
 
 export function App() {
@@ -7,6 +8,22 @@ export function App() {
   const [submittedTask, setSubmittedTask] = useState([]); 
   
   setNumberTask(submittedTask.length)
+
+  const fetchData = async() => {
+
+    try{
+      const response = await axios.get('http://localhost:3000/tasks')
+      setTask(response.data.data);
+
+
+    }catch(error){
+      console.log('Something went wrong.')
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  },[])
 
   const getValue = (e) => {
     setTask(e.target.value);
