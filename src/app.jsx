@@ -7,8 +7,12 @@ export function App() {
   const [submittedTask, setSubmittedTask] = useState([]); 
   
   
+  useEffect(() => {
+    fetchData()
+  },[])
 
-  const fetchData = async() => {
+
+  const fetchData = async () => {
 
     try{
       const response = await axios.get('http://localhost:3000/tasks')
@@ -26,16 +30,26 @@ export function App() {
     setInputTask(e.target.value);
   };
 
-  const buttonClick = () => {
+  const buttonClick = async () => {
     if (!inputTask) return
     
-    setSubmittedTask([...submittedTask,inputTask]); 
-    setTask(""); 
+    try{
+
+      const insertData = await axios.post('http://localhost:3000/tasks',{
+        task: inputTask
+      });
+
+      console.log(insertData.data);
+      setInputTask(""); 
+      fetchData();
+
+    }catch(error){
+      console.error('Something went wrong. ', error)
+    }
+  
   };
 
-useEffect(() => {
-    fetchData()
-  },[])
+
 
 
   return (
