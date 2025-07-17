@@ -72,6 +72,10 @@ export function App() {
     },500)
   }
 
+  const handleEnter = (e) => {
+    
+  }
+
   const updateTask = (id) => {
     setEditTaskId(id)
     const currentTask = submittedTask.find((task) => task.id === id )
@@ -103,6 +107,7 @@ export function App() {
           placeholder="Add new task"
           value={inputTask}
           onChange={getValue}
+          onKeyDown={(e) => (e.key === 'Enter') ? buttonClick() : ''}
         />
 
         <button className='add-btn' onClick={buttonClick}>
@@ -111,6 +116,10 @@ export function App() {
 
         <p className='noTask'>Task: {submittedTask.length}</p>
 
+        { submittedTask.length === 0 ?(
+        <h2 className='noTaskRemaining'>No tasks remaining.</h2>
+      ):(
+
         <div className='tasks'>
           {submittedTask.map((task,index) => (
 
@@ -118,7 +127,7 @@ export function App() {
 
               <div className='task'>
                   {editedTaskId === task.id ? (
-                      <input className='edit' value={editedText} onChange={(e) => setEditedText(e.target.value)}/>
+                      <input className='edit' value={editedText} onChange={(e) => setEditedText(e.target.value)} onKeyDown={(e) => (e.key === 'Enter') ? editRequest(task.id) : ''}/>
                     ) : (
                       <p className='ttext'>{task.task}</p>
                     )}
@@ -142,9 +151,8 @@ export function App() {
          
          ))}
         </div>
-
-      </div>
-      
-    </div>
+    )}
+     </div>
+  </div>
   );
 }
