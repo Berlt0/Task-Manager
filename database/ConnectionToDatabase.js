@@ -19,6 +19,6 @@ database.connect((err) =>{
 })
 
 
-database.end()
+
 
 export default database;

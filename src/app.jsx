@@ -3,39 +3,39 @@ import axios from 'axios';
 import './app.css';
 
 export function App() {
-  const [task, setTask] = useState("");
-  const [NumberTask, setNumberTask] = useState(0);
+  const [inputTask, setInputTask] = useState("");
   const [submittedTask, setSubmittedTask] = useState([]); 
   
-  setNumberTask(submittedTask.length)
+  
 
   const fetchData = async() => {
 
     try{
       const response = await axios.get('http://localhost:3000/tasks')
-      setTask(response.data.data);
+      setSubmittedTask(response.data.data);
+      console.log(response.data.data)
 
 
     }catch(error){
-      console.log('Something went wrong.')
+      console.error('Something went wrong.', error)
     }
   }
 
-  useEffect(() => {
-    fetchData()
-  },[])
-
+  
   const getValue = (e) => {
-    setTask(e.target.value);
+    setInputTask(e.target.value);
   };
 
   const buttonClick = () => {
-    if (!task) return
-
-    setSubmittedTask([...submittedTask,task]); 
+    if (!inputTask) return
+    
+    setSubmittedTask([...submittedTask,inputTask]); 
     setTask(""); 
   };
 
+useEffect(() => {
+    fetchData()
+  },[])
 
 
   return (
@@ -46,7 +46,7 @@ export function App() {
         <input
           className='task-input'
           placeholder="Add new task"
-          value={task}
+          value={inputTask}
           onChange={getValue}
         />
 
@@ -54,12 +54,12 @@ export function App() {
           Add
         </button>
 
-        <p className='noTask'>Task: {NumberTask}</p>
+        <p className='noTask'>Task: {submittedTask.length}</p>
 
         <div className='tasks'>
           {submittedTask.map((task,index) => (
           
-              <p className='ttext' key={index}>{task}</p>
+              <p className='ttext' key={index}>{task.task}</p>
             
           ))}
         </div>

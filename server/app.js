@@ -10,7 +10,6 @@ app.use(cors())
 
 app.get('/tasks', (req,res) => {
 
-    try{
     const query = 'SELECT * FROM tasks';
 
     database.query(query, (err,result) => {
@@ -22,10 +21,7 @@ app.get('/tasks', (req,res) => {
     res.status(200).json({success:true, data:result})
 
     });
-    }catch(error){
-        console.log(error)
-        return res.status(500).json({success:false,message:'Something went wrong in the server.'})
-    }
+
 
 })
 
