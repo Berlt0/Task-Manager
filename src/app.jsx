@@ -7,8 +7,9 @@ import './app.css';
 export function App() {
   const [inputTask, setInputTask] = useState("");
   const [submittedTask, setSubmittedTask] = useState([]); 
+  const [selectDeletedTaskId,setSelectDeletedTaskId] = useState(null)
   
-  
+
   useEffect(() => {
     fetchData()
   },[])
@@ -51,7 +52,22 @@ export function App() {
   
   };
 
+  const deleteTask = async (id) => {
 
+    setSelectDeletedTaskId(id)
+
+    setTimeout( async () => {
+      try{
+        const response = await axios.delete(`http://localhost:3000/tasks/${id}`);
+        
+        fetchData();
+        setSelectDeletedTaskId(null)
+
+      }catch(error){
+        console.error('Something went wrong.',error)
+      }
+    },500)
+  }
 
 
   return (
@@ -75,7 +91,7 @@ export function App() {
         <div className='tasks'>
           {submittedTask.map((task,index) => (
 
-            <div className='task-item' key={index}>
+            <div className={`task-item ${selectDeletedTaskId === task.id ? 'deleting' : ''}`} key={task.id}>
 
               <div className='task'>
                 <p className='ttext'>{task.task}</p>
@@ -83,7 +99,7 @@ export function App() {
 
               <div className='icons'>
                 <FaEdit className="edit-icon"/>
-                <MdDelete className="delete-icon"/>
+                <MdDelete className="delete-icon" onClick={() => deleteTask(task.id)}/>
               </div>
 
             </div>

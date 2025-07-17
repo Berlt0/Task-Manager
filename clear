@@ -1,0 +1,29 @@
+[33mcommit 77c35329ad49e2427650b059376434e91aca1bf6[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mnewBranch[m[33m)[m
+Author: Gilbert <gilbertjohngallega82@gmail.com>
+Date:   Thu Jul 17 15:28:35 2025 +0800
+
+    Added icons
+
+[33mcommit a8bc79321871edc3a4527d927e01ceae626be88c[m
+Author: Gilbert <gilbertjohngallega82@gmail.com>
+Date:   Thu Jul 17 14:46:51 2025 +0800
+
+    Successfully added post request
+
+[33mcommit 0a79020de00c8aaa81f24765aa94386921a29322[m
+Author: Gilbert <gilbertjohngallega82@gmail.com>
+Date:   Thu Jul 17 11:15:09 2025 +0800
+
+    Successfully fetching data in the db and show it on web browser
+
+[33mcommit 2289a07e8dede4266cca6bc45d6e2e4b88552c2a[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Gilbert <gilbertjohngallega82@gmail.com>
+Date:   Tue Jul 15 22:28:09 2025 +0800
+
+    Successfully connected to the database and Fetches data form the database
+
+[33mcommit f8713e5eb28fcecd089b6834a902ece91c717013[m
+Author: Gilbert <gilbertjohngallega82@gmail.com>
+Date:   Tue Jul 15 22:00:52 2025 +0800
+
+    Successfully connected to the database
