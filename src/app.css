@@ -69,14 +69,42 @@
 .ttext{
     color: black;
     font-size: 20px;
+   
+}
+
+.tasks{
+    
+    padding:10px;
+    margin-top: 10px;
+}
+
+.task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 20px 15px 20px 15px;
     box-shadow: 0 0 10px rgba(128, 128, 128, 0.644);
     margin-top: 10px;
     border-radius: 10px;
 }
 
-.tasks{
+.task {
+  flex: 1;
+}
 
-    padding:10px;
-    margin-top: 10px;
+.icons {
+  display: flex;
+  gap: 10px;
+}
+
+.delete-icon {
+  color: red;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.edit-icon {
+  color: blue;
+  font-size: 20px;
+  cursor: pointer;
 }

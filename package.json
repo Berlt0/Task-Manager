@@ -10,11 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "axios": "^1.10.0",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "mysql": "^2.18.1",
-    "preact": "^10.26.9"
+    "preact": "^10.26.9",
+    "react-icons": "^5.5.0"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.10.2",

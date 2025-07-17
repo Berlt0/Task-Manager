@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'preact/hooks';
+import { MdDelete } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
 import axios from 'axios';
 import './app.css';
 
@@ -56,7 +58,7 @@ export function App() {
     <div className='main'>
       <div className='second'>
         <h2 className='task_manager'>Task Manager</h2>
-
+        
         <input
           className='task-input'
           placeholder="Add new task"
@@ -72,10 +74,21 @@ export function App() {
 
         <div className='tasks'>
           {submittedTask.map((task,index) => (
-          
-              <p className='ttext' key={index}>{task.task}</p>
-            
-          ))}
+
+            <div className='task-item' key={index}>
+
+              <div className='task'>
+                <p className='ttext'>{task.task}</p>
+              </div>
+
+              <div className='icons'>
+                <FaEdit className="edit-icon"/>
+                <MdDelete className="delete-icon"/>
+              </div>
+
+            </div>
+         
+         ))}
         </div>
 
       </div>
