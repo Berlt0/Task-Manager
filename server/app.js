@@ -57,4 +57,21 @@ app.delete('/tasks/:id', (req,res) => {
 })
 
 
+app.put('/tasks/:id', (req,res) => {
+
+    const {id} = req.params;
+    const {task} =req.body;
+    const query = 'UPDATE tasks SET task = ? WHERE id = ?'
+
+    database.query(query, [task,id], (err,result) =>{
+
+        if(err) return res.status(500).json({success:true,message: 'Something went wrong.'})
+
+        res.status(200).json({success: true,message: 'Successfully updated'})
+
+    })
+
+})
+
+
 app.listen(PORT, () => console.log(`Server is running in localhost:${PORT}`))

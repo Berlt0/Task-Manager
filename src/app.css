@@ -122,12 +122,33 @@
 
 .delete-icon {
   color: red;
-  font-size: 20px;
+  font-size: 25px;
   cursor: pointer;
 }
 
 .edit-icon {
   color: blue;
-  font-size: 20px;
+  font-size: 25px;
   cursor: pointer;
+}
+
+.cancel-icon{
+    color: grey;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.save-icon{
+    color: green;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.edit{
+    padding: 10px 15px 10px 15px;
+    width: 90%;
+    border-radius: 5px;
+    font-size:18px;
+    outline:none;
+
 }

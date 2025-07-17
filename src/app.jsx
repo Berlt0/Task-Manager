@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'preact/hooks';
 import { MdDelete } from "react-icons/md";
+import { MdCancel } from "react-icons/md";
+import { FaCheck } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 import axios from 'axios';
 import './app.css';
 
 export function App() {
   const [inputTask, setInputTask] = useState("");
+  const [editedText,setEditedText] = useState("")
+  const [editedTaskId,setEditTaskId] = useState(null);
   const [submittedTask, setSubmittedTask] = useState([]); 
   const [selectDeletedTaskId,setSelectDeletedTaskId] = useState(null)
-  
 
   useEffect(() => {
     fetchData()
@@ -69,6 +72,26 @@ export function App() {
     },500)
   }
 
+  const updateTask = (id) => {
+    setEditTaskId(id)
+    const currentTask = submittedTask.find((task) => task.id === id )
+    setEditedText(currentTask.task); 
+  }
+
+  const editRequest = async (id) => {
+    try{
+      const response = await axios.put(`http://localhost:3000/tasks/${id}`, {
+        task: editedText
+      })
+
+      setEditTaskId(null)
+      setEditedText("")
+      fetchData()
+
+    }catch(error){
+      console.error('Something Went Wrong.', err)
+    }
+  }
 
   return (
     <div className='main'>
@@ -94,11 +117,24 @@ export function App() {
             <div className={`task-item ${selectDeletedTaskId === task.id ? 'deleting' : ''}`} key={task.id}>
 
               <div className='task'>
-                <p className='ttext'>{task.task}</p>
+                  {editedTaskId === task.id ? (
+                      <input className='edit' value={editedText} onChange={(e) => setEditedText(e.target.value)}/>
+                    ) : (
+                      <p className='ttext'>{task.task}</p>
+                    )}
               </div>
 
               <div className='icons'>
-                <FaEdit className="edit-icon"/>
+                { editedTaskId === task.id ? (
+                  <>
+                    <FaCheck className="save-icon" onClick={() => editRequest(task.id)}/>
+                    <MdCancel className="cancel-icon" onClick={() => setEditTaskId(null)}/>
+                  </>
+                ):(
+                  
+                     <FaEdit className="edit-icon" onClick={() => updateTask(task.id)}/>
+                
+                )}
                 <MdDelete className="delete-icon" onClick={() => deleteTask(task.id)}/>
               </div>
 
