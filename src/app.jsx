@@ -72,10 +72,6 @@ export function App() {
     },500)
   }
 
-  const handleEnter = (e) => {
-    
-  }
-
   const updateTask = (id) => {
     setEditTaskId(id)
     const currentTask = submittedTask.find((task) => task.id === id )
