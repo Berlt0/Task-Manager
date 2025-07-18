@@ -72,6 +72,11 @@
     color:black;
 }
 
+.noTask{
+    font-size: 15px;
+    font-family: arial, sans-serif;
+}
+
 
 .ttext{
     color: black;
@@ -162,3 +167,4 @@
     outline:none;
 
 }
+

@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'preact/hooks';
-import { MdDelete } from "react-icons/md";
-import { MdCancel } from "react-icons/md";
-import { FaCheck } from "react-icons/fa";
-import { FaEdit } from "react-icons/fa";
+import { MdDelete,MdCancel,MdWork ,MdHealthAndSafety,MdPriorityHigh,MdLabelImportant } from "react-icons/md";
+import { FaCheck,FaEdit ,FaHome} from "react-icons/fa";
 import axios from 'axios';
 import './app.css';
 
 export function App() {
+  const [selected,setSelected] = useState("")
   const [inputTask, setInputTask] = useState("");
   const [editedText,setEditedText] = useState("")
   const [editedTaskId,setEditTaskId] = useState(null);
@@ -71,7 +70,7 @@ export function App() {
       }
     },500)
   }
-
+``
   const updateTask = (id) => {
     setEditTaskId(id)
     const currentTask = submittedTask.find((task) => task.id === id )
@@ -91,6 +90,7 @@ export function App() {
     }catch(error){
       console.error('Something Went Wrong.', err)
     }
+
   }
 
   return (
@@ -130,6 +130,7 @@ export function App() {
               </div>
 
               <div className='icons'>
+
                 { editedTaskId === task.id ? (
                   <>
                     <FaCheck className="save-icon" onClick={() => editRequest(task.id)}/>
@@ -137,11 +138,12 @@ export function App() {
                   </>
                 ):(
                   
-                     <FaEdit className="edit-icon" onClick={() => updateTask(task.id)}/>
+                  <FaEdit className="edit-icon" onClick={() => updateTask(task.id)}/>
                 
                 )}
                 <MdDelete className="delete-icon" onClick={() => deleteTask(task.id)}/>
               </div>
+
 
             </div>
          
@@ -149,6 +151,8 @@ export function App() {
         </div>
     )}
      </div>
+
+
   </div>
   );
 }
