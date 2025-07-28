@@ -1,10 +1,12 @@
 import mysql from 'mysql';
+import dotenv from'dotenv';
+dotenv.config();
 
  const database = mysql.createConnection({
-    host: '127.0.0.1',
-    user: 'root',
-    password: 'lezgosqllearn21',
-    database: 'task_manager',
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DB,
 })
 
 database.connect((err) =>{

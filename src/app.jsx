@@ -1,26 +1,42 @@
 import { useState, useEffect } from 'preact/hooks';
 import { MdDelete,MdCancel,MdWork ,MdHealthAndSafety,MdPriorityHigh,MdLabelImportant } from "react-icons/md";
 import { FaCheck,FaEdit ,FaHome} from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './app.css';
 
 export function App() {
+  const navigate = useNavigate();
   const [selected,setSelected] = useState("")
   const [inputTask, setInputTask] = useState("");
   const [editedText,setEditedText] = useState("")
   const [editedTaskId,setEditTaskId] = useState(null);
   const [submittedTask, setSubmittedTask] = useState([]); 
   const [selectDeletedTaskId,setSelectDeletedTaskId] = useState(null)
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    fetchData()
+    checkAuth();
   },[])
 
+    const checkAuth = async () => {
+      try {
+        const res = await axios.get('http://localhost:3000/me', {
+          withCredentials: true,
+        });
 
+        setUser(res.data.user);
+        fetchData(); // only fetch tasks if authenticated
+      } catch (err) {
+        console.log("Not logged in. Redirecting...");
+        navigate('/');
+      }
+    };
+    
   const fetchData = async () => {
 
     try{
-      const response = await axios.get('http://localhost:3000/tasks')
+      const response = await axios.get('http://localhost:3000/tasks', { withCredentials: true })
       setSubmittedTask(response.data.data);
       console.log(response.data.data)
 
@@ -42,7 +58,7 @@ export function App() {
 
       const insertData = await axios.post('http://localhost:3000/tasks',{
         task: inputTask
-      });
+      }, { withCredentials: true });
 
       console.log(insertData.data);
       setInputTask(""); 
@@ -60,7 +76,7 @@ export function App() {
 
     setTimeout( async () => {
       try{
-        const response = await axios.delete(`http://localhost:3000/tasks/${id}`);
+        const response = await axios.delete(`http://localhost:3000/tasks/${id}`, { withCredentials: true });
         
         fetchData();
         setSelectDeletedTaskId(null)
@@ -70,7 +86,7 @@ export function App() {
       }
     },500)
   }
-``
+
   const updateTask = (id) => {
     setEditTaskId(id)
     const currentTask = submittedTask.find((task) => task.id === id )
@@ -81,7 +97,7 @@ export function App() {
     try{
       const response = await axios.put(`http://localhost:3000/tasks/${id}`, {
         task: editedText
-      })
+      }, { withCredentials: true })
 
       setEditTaskId(null)
       setEditedText("")
@@ -93,10 +109,28 @@ export function App() {
 
   }
 
+  const handleLogOut = async () => {
+
+    try{
+
+      await axios.post('http://localhost:3000/logout',{},{withCredentials: true});
+      navigate('/');
+      setUser(null);
+
+    }catch(error){
+      console.error('Something went wrong while logging out.', error);
+    }
+
+  }
   return (
     <div className='main'>
       <div className='second'>
-        <h2 className='task_manager'>Task Manager</h2>
+      <>
+        <div className='header'>
+          <h2 className='task_manager'>Task Manager</h2>
+          <button className="log-out" onClick={handleLogOut}>Logout</button>
+        </div>
+      </>
         
         <input
           className='task-input'

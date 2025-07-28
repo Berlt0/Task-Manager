@@ -23,6 +23,32 @@
     
 }
 
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+
+}
+
+.log-out{
+    padding: 10px 20px;
+    font-size: 15px;
+    font-family: arial,sans-serif;
+    border:none;
+    border-radius: 5px;
+    background-color: red;
+    color:white;
+    cursor: pointer;
+    box-shadow:  3px 3px 8px black;
+    transition: all 0.1s ease;
+}
+
+.log-out:hover{
+    box-shadow: inset -3px -3px 8px rgb(61, 60, 60);
+    border-radius: 10px;
+}
+
 .task_manager{
     font-size: clamp(1.1rem, 5vw, 2rem);
     font-family: arial,sans-serif;
@@ -77,6 +103,11 @@
     font-family: arial, sans-serif;
 }
 
+.done {
+  text-decoration: line-through;
+  color: #888;
+  font-style: italic;
+}
 
 .ttext{
     color: black;
